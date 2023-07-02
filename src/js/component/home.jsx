@@ -1,26 +1,53 @@
-import React from "react";
+//import react into the bundle
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
 
-//create your first component
-const Home = () => {
+export function Home() {
+	const [color, setColor] = useState("")
+	const [activePurple, setActivePurple] = useState(false)
+
+	const selectedColor = (lightColor) => {
+		if (lightColor === color) {
+			setColor("")
+		} else {
+			setColor(lightColor)
+		}
+	}
 	return (
-		<div className="text-center">
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
+		<div className="d-flex align-items-center flex-column">
+			<div className="traffic-light">
+				<div className={`light-red ${color === "red" ? "shadows" : ""
+					}`} onClick={(event) => {
+						console.log("red")
+						selectedColor("red")
+					}}>
+				</div>
+				<div className={`light-yellow ${color == "yellow" ? "shadows" : ""
+					}`} onClick={(event) => {
+						console.log("yellow")
+						selectedColor("yellow")
+					}}>
+				</div>
+				<div className={`light-green ${color == "green" ? "shadows" : ""
+					}`} onClick={(event) => {
+						console.log("green")
+						selectedColor("green")
+					}}>
+				</div>
+				{activePurple === true ? (<div className={`light-purple ${color == "purple" ? "shadows" : ""
+					}`} onClick={(event) => {
+						console.log("purple")
+						selectedColor("purple")
+					}}>
+				</div>) : null}
+			</div>
+			<div className="buttom">
+				<button className="btn btn-primary" onClick={() => setActivePurple(!activePurple)}>
+					{activePurple ? "Disable" : "Enable"}
+				</button>
+			</div>
 		</div>
-	);
-};
-
+	)
+}
 export default Home;
